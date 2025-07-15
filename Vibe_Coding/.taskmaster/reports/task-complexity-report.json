@@ -1,0 +1,93 @@
+{
+	"meta": {
+		"generatedAt": "2025-07-15T08:21:43.697Z",
+		"tasksAnalyzed": 10,
+		"totalTasks": 10,
+		"analysisCount": 10,
+		"thresholdScore": 5,
+		"projectName": "Taskmaster",
+		"usedResearch": true
+	},
+	"complexityAnalysis": [
+		{
+			"taskId": 1,
+			"taskTitle": "Unity URP 프로젝트 설정 및 기본 환경 구축",
+			"complexityScore": 5,
+			"recommendedSubtasks": 7,
+			"expansionPrompt": "Break down the Unity URP project setup task into detailed implementation steps, including project structure organization, character controller implementation, camera system setup, terrain creation, lighting configuration, and debug UI framework.",
+			"reasoning": "This task involves setting up the foundation of the project with multiple interconnected systems. While each component (character controller, camera, lighting) is well-documented in Unity, integrating them properly requires moderate expertise. The task is well-defined with clear deliverables but requires understanding of several Unity subsystems."
+		},
+		{
+			"taskId": 2,
+			"taskTitle": "자원 채집 및 인벤토리 시스템 구현",
+			"complexityScore": 6,
+			"recommendedSubtasks": 6,
+			"expansionPrompt": "Detail the implementation steps for the resource gathering and inventory system, including resource class design, interaction mechanics, collection animations, inventory data structures, UI implementation, and integration with the player controller.",
+			"reasoning": "This task requires designing data structures and implementing UI systems with state management. The inventory system needs to handle various edge cases (full inventory, resource types) and requires integration with player interaction systems. The complexity comes from managing state across multiple systems and creating intuitive UI."
+		},
+		{
+			"taskId": 3,
+			"taskTitle": "구조물 건설 시스템 구현",
+			"complexityScore": 7,
+			"recommendedSubtasks": 6,
+			"expansionPrompt": "Break down the structure building system implementation into detailed steps, including structure class design, ScriptableObject database creation, building UI implementation, placement preview system with grid snapping, resource consumption logic, and structure state management.",
+			"reasoning": "This task involves complex spatial manipulation, grid systems, and visual feedback mechanisms. The placement preview with grid snapping requires sophisticated raycasting and validation logic. Integration with the resource system adds another layer of complexity. The structure state management system needs to handle various conditions and damage states."
+		},
+		{
+			"taskId": 4,
+			"taskTitle": "낮/밤 사이클 및 게임 상태 관리 시스템 구현",
+			"complexityScore": 6,
+			"recommendedSubtasks": 5,
+			"expansionPrompt": "Detail the implementation steps for the day/night cycle and game state management system, including GameStateManager singleton design, state transition events, timer system, lighting transitions, and state-specific game logic integration.",
+			"reasoning": "This task requires implementing a state machine with event systems that affect multiple game systems. The lighting transitions need to be visually appealing while maintaining performance. The complexity comes from ensuring all game systems respond appropriately to state changes and maintaining a robust event architecture."
+		},
+		{
+			"taskId": 5,
+			"taskTitle": "기본 좀비 AI 및 웨이브 스폰 시스템 구현",
+			"complexityScore": 7,
+			"recommendedSubtasks": 6,
+			"expansionPrompt": "Break down the zombie AI and wave spawn system implementation into detailed steps, including zombie character attributes, state machine design, NavMesh pathfinding, wave data structures, spawn point management, and interaction systems with players and structures.",
+			"reasoning": "This task involves AI programming with state machines and pathfinding, which are inherently complex. The wave spawn system needs to manage entity lifecycles and difficulty progression. Performance considerations are critical as the number of AI agents increases. Integration with the player and structure systems adds additional complexity."
+		},
+		{
+			"taskId": 6,
+			"taskTitle": "Unity Netcode for GameObjects 기반 네트워크 시스템 구현",
+			"complexityScore": 9,
+			"recommendedSubtasks": 8,
+			"expansionPrompt": "Detail the implementation steps for the Unity Netcode for GameObjects networking system, including package setup, network manager implementation, player synchronization, input-based prediction model, structure and resource synchronization, RPC event system, and network debugging tools.",
+			"reasoning": "Networking is one of the most complex aspects of game development. This task requires deep understanding of client-server architecture, state synchronization, and handling network conditions like latency and packet loss. The implementation must ensure security, prevent cheating, and maintain a consistent game state across clients. Debugging networked gameplay adds significant complexity."
+		},
+		{
+			"taskId": 7,
+			"taskTitle": "Job System 및 Burst Compiler를 활용한 좀비 AI 최적화",
+			"complexityScore": 8,
+			"recommendedSubtasks": 7,
+			"expansionPrompt": "Break down the Job System and Burst Compiler optimization task into detailed steps, including ECS architecture design, converting AI logic to jobs, implementing Burst compilation, creating the GameObject-ECS conversion layer, performance comparison systems, and debugging tools for ECS entities.",
+			"reasoning": "This task requires deep understanding of Unity's ECS architecture, Job System, and Burst Compiler - all advanced topics. Converting traditional GameObject-based code to ECS requires significant refactoring and a different programming paradigm. Performance optimization at this level requires low-level understanding of CPU architecture and memory management."
+		},
+		{
+			"taskId": 8,
+			"taskTitle": "GPU Instancing 및 LOD 시스템 구현",
+			"complexityScore": 7,
+			"recommendedSubtasks": 5,
+			"expansionPrompt": "Detail the implementation steps for GPU Instancing and LOD system optimization, including material instancing setup, instance property configuration, LOD group creation, occlusion culling configuration, and rendering performance monitoring tools.",
+			"reasoning": "This task involves graphics programming concepts and rendering pipeline optimization. Understanding GPU Instancing, LOD systems, and occlusion culling requires knowledge of how Unity's rendering pipeline works. The performance monitoring tools need to accurately measure rendering metrics, which adds complexity."
+		},
+		{
+			"taskId": 9,
+			"taskTitle": "JSON 기반 게임 상태 저장/로드 시스템 구현",
+			"complexityScore": 6,
+			"recommendedSubtasks": 5,
+			"expansionPrompt": "Break down the JSON-based save/load system implementation into detailed steps, including save data structure design, serialization/deserialization implementation with custom converters, save/load manager creation, UI implementation, and network integration for multiplayer games.",
+			"reasoning": "This task requires designing robust data structures that can capture the entire game state. Serialization of complex Unity types (Vector3, Quaternion) requires custom converters. Error handling for corrupted save files and version management add complexity. The network integration for multiplayer games introduces additional synchronization challenges."
+		},
+		{
+			"taskId": 10,
+			"taskTitle": "시스템 고도화 및 포트폴리오 데이터 수집 도구 구현",
+			"complexityScore": 8,
+			"recommendedSubtasks": 6,
+			"expansionPrompt": "Detail the implementation steps for system enhancement and portfolio data collection tools, including binary serialization, data migration system, advanced performance analysis tools, automated screenshot and video capture, and expanded debug menu with optimization toggles.",
+			"reasoning": "This task combines multiple advanced topics: binary serialization, version management, performance profiling, and automated testing. The data migration system must handle schema evolution gracefully. The performance analysis tools need to accurately measure and visualize complex metrics. Creating a comprehensive portfolio data collection system requires integration with multiple subsystems."
+		}
+	]
+}

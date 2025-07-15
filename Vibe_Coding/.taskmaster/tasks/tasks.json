@@ -1,0 +1,838 @@
+{
+  "master": {
+    "tasks": [
+      {
+        "id": 1,
+        "title": "Unity URP 프로젝트 설정 및 기본 환경 구축",
+        "description": "Unity URP 기반 프로젝트를 설정하고 기본 플레이 환경을 구축합니다. 캐릭터 이동, 카메라 시스템, 기본 환경 애셋을 배치합니다.",
+        "details": "1. Unity 최신 LTS 버전으로 URP 템플릿 프로젝트 생성\n2. 프로젝트 구조 설정 (Assets/Scripts, Assets/Prefabs, Assets/Scenes 등)\n3. 기본 캐릭터 컨트롤러 구현 (WASD 이동, 마우스 시점 조작)\n4. 3인칭 카메라 시스템 구현 (캐릭터 추적, 충돌 방지)\n5. 테스트용 지형 및 기본 환경 애셋 배치\n6. 낮/밤 사이클을 위한 기본 라이팅 설정\n7. 디버그 UI 프레임워크 구축 (FPS 카운터, 성능 모니터링 기초)",
+        "testStrategy": "1. 캐릭터가 지형에서 자연스럽게 이동하는지 확인\n2. 카메라가 캐릭터를 적절히 따라가는지 확인\n3. 기본 환경에서 충돌 및 렌더링 이슈가 없는지 확인\n4. 디버그 UI가 정확한 정보를 표시하는지 확인",
+        "priority": "high",
+        "dependencies": [],
+        "status": "in-progress",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Create URP Project and Setup Project Structure",
+            "description": "Create a new Unity project using the URP template and organize the project folder structure",
+            "dependencies": [],
+            "details": "1. Install the latest Unity LTS version\n2. Create a new project using the Universal Render Pipeline template\n3. Create the following folder structure:\n   - Assets/Scripts (with subfolders: Player, Camera, UI, Systems, Utils)\n   - Assets/Prefabs (with subfolders: Characters, Environment, UI)\n   - Assets/Scenes (Main, Test)\n   - Assets/Materials\n   - Assets/Textures\n   - Assets/Models\n   - Assets/Settings\n4. Configure initial URP settings in the URP Asset\n5. Setup version control (Git) with appropriate .gitignore",
+            "status": "done",
+            "testStrategy": ""
+          },
+          {
+            "id": 2,
+            "title": "Implement Basic Character Controller",
+            "description": "Create a character controller with WASD movement and mouse look functionality",
+            "dependencies": [
+              1
+            ],
+            "details": "1. Create a player character prefab with basic geometry (capsule/cube)\n2. Implement PlayerMovement.cs script with:\n   - WASD keyboard input for movement\n   - Physics-based movement using Rigidbody or CharacterController\n   - Configurable movement speed and acceleration\n3. Implement PlayerLook.cs script with:\n   - Mouse input for camera rotation\n   - Configurable sensitivity and smoothing\n   - Vertical angle clamping\n4. Add appropriate colliders and physics materials\n5. Implement basic player state management (idle, walking, running)",
+            "status": "done",
+            "testStrategy": ""
+          },
+          {
+            "id": 3,
+            "title": "Develop Third-Person Camera System",
+            "description": "Create a camera system that follows the player with collision detection and smooth transitions",
+            "dependencies": [
+              2
+            ],
+            "details": "1. Create CameraController.cs script with:\n   - Target following with configurable offset and height\n   - Smooth damping for camera movement\n   - Orbital rotation around the player\n2. Implement camera collision detection:\n   - Raycast from target to camera position\n   - Adjust camera distance when obstacles detected\n3. Add camera occlusion handling to prevent view obstruction\n4. Implement camera state system (normal, aim, dialogue)\n5. Add smooth transitions between camera states\n6. Create camera shake effect for environmental events",
+            "status": "in-progress",
+            "testStrategy": ""
+          },
+          {
+            "id": 4,
+            "title": "Create Test Terrain and Environment",
+            "description": "Build a test environment with terrain, basic assets, and navigation setup",
+            "dependencies": [
+              1
+            ],
+            "details": "1. Create a new terrain using Unity's Terrain Tool\n2. Design basic landscape with hills, valleys, and flat areas\n3. Add terrain textures (grass, dirt, rock)\n4. Place basic environment assets:\n   - Trees and vegetation\n   - Rocks and natural obstacles\n   - Simple structures (walls, platforms)\n5. Setup NavMesh for AI navigation\n6. Add collision for all environmental objects\n7. Organize environment assets into prefabs for reusability",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 5,
+            "title": "Configure Lighting System with Day/Night Cycle",
+            "description": "Implement a dynamic lighting system with day/night cycle functionality",
+            "dependencies": [
+              4
+            ],
+            "details": "1. Create a LightingManager.cs script to control global lighting\n2. Setup directional light as the sun with appropriate intensity and color\n3. Implement day/night cycle:\n   - Time-based rotation of directional light\n   - Color gradient for sky and ambient lighting\n   - Configurable cycle duration\n4. Add post-processing volume with different profiles for day/night\n5. Create light probes and reflection probes for accurate lighting\n6. Implement weather states (clear, cloudy, rainy) with visual effects\n7. Add simple UI to display current time of day",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 6,
+            "title": "Implement Debug UI Framework",
+            "description": "Create a comprehensive debug UI system for monitoring performance and game state",
+            "dependencies": [
+              1
+            ],
+            "details": "1. Create DebugManager.cs singleton to manage debug functionality\n2. Implement FPS counter and display\n3. Add performance monitoring panels:\n   - Memory usage\n   - Draw calls\n   - Triangles/vertices count\n   - CPU/GPU usage indicators\n4. Create toggleable debug overlays:\n   - Wireframe mode\n   - Collision visualization\n   - NavMesh visualization\n5. Implement console system for debug commands\n6. Add system for logging important events\n7. Create UI controls to toggle debug features",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 7,
+            "title": "Integrate and Test Core Systems",
+            "description": "Integrate all components and perform comprehensive testing of the basic environment",
+            "dependencies": [
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "details": "1. Create a main test scene with all implemented systems\n2. Verify character movement on different terrain types\n3. Test camera behavior around obstacles and in confined spaces\n4. Validate day/night cycle visual effects and timing\n5. Perform performance testing with debug UI:\n   - Measure baseline performance metrics\n   - Identify potential bottlenecks\n6. Create test scenarios for edge cases:\n   - Character movement on extreme slopes\n   - Camera behavior in tight corners\n   - Lighting transitions at dawn/dusk\n7. Document test results and any issues found",
+            "status": "pending",
+            "testStrategy": ""
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "title": "자원 채집 및 인벤토리 시스템 구현",
+        "description": "플레이어가 맵에서 자원을 채집하고 인벤토리에 저장할 수 있는 시스템을 구현합니다.",
+        "details": "1. 자원 클래스 설계 (ID, 이름, 아이콘, 설명 등 속성 포함)\n2. 맵에 자원 오브젝트 배치 (나무, 돌, 금속 등)\n3. 자원 채집 상호작용 구현 (플레이어 접근 시 상호작용 UI 표시)\n4. 채집 애니메이션 및 타이머 구현\n5. 인벤토리 시스템 구현:\n   - 인벤토리 데이터 구조 (아이템 ID와 수량을 저장하는 딕셔너리)\n   - 인벤토리 UI (자원 목록, 수량 표시)\n   - 자원 추가/제거 메서드\n6. 자원 채집 시 인벤토리에 자동 추가되는 로직 구현",
+        "testStrategy": "1. 다양한 자원 유형을 채집하여 인벤토리에 정확히 추가되는지 확인\n2. 인벤토리 UI가 자원 변화를 실시간으로 반영하는지 확인\n3. 채집 애니메이션과 타이머가 정상 작동하는지 확인\n4. 에지 케이스 테스트 (인벤토리 최대치 도달 시 동작 확인)",
+        "priority": "high",
+        "dependencies": [
+          1
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Design Resource Class and Data Structure",
+            "description": "Create the resource class with properties and implement the inventory data structure",
+            "dependencies": [],
+            "details": "1. Define Resource class with properties: ID, name, icon, description, resource type (wood, stone, metal, etc.)\n2. Create ScriptableObject templates for different resource types\n3. Implement the inventory data structure using Dictionary<int, int> to store item IDs and quantities\n4. Design resource categories and rarity levels if applicable\n5. Create methods for adding, removing, and checking resources in inventory\n6. Implement inventory capacity limits and overflow handling",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 2,
+            "title": "Implement Resource Objects in Game World",
+            "description": "Place resource objects in the game world and set up their properties",
+            "dependencies": [
+              1
+            ],
+            "details": "1. Create prefabs for resource objects (trees, rocks, metal deposits, etc.)\n2. Add colliders and appropriate tags/layers for interaction detection\n3. Implement visual feedback for harvestable resources (outline, highlight)\n4. Set up resource properties (resource type, amount, respawn time)\n5. Create resource manager to handle resource spawning and respawning\n6. Implement resource distribution patterns across the map",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 3,
+            "title": "Develop Resource Gathering Interaction System",
+            "description": "Create the interaction system for detecting and gathering resources",
+            "dependencies": [
+              1,
+              2
+            ],
+            "details": "1. Implement player proximity detection for resources\n2. Create interaction prompt UI that appears when near harvestable resources\n3. Develop input handling for resource gathering (key press/hold)\n4. Implement raycasting or trigger-based detection for resource interaction\n5. Create feedback for successful/failed interaction attempts\n6. Add tool requirements for specific resource types if applicable",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 4,
+            "title": "Create Gathering Animations and Timers",
+            "description": "Implement animations and timing mechanics for resource gathering",
+            "dependencies": [
+              3
+            ],
+            "details": "1. Create or import gathering animations for the player character\n2. Implement animation triggers based on resource type (chopping, mining, etc.)\n3. Create gathering timer system with progress feedback\n4. Add visual and audio effects during gathering (particle effects, sound)\n5. Implement interruption handling for gathering process\n6. Create cooldown system for resource gathering if needed",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 5,
+            "title": "Develop Inventory UI System",
+            "description": "Create the user interface for displaying and managing inventory",
+            "dependencies": [
+              1
+            ],
+            "details": "1. Design inventory UI layout (grid, list, or hybrid)\n2. Implement UI elements for displaying resources (icons, quantities, descriptions)\n3. Create sorting and filtering options for inventory items\n4. Add tooltips for detailed resource information\n5. Implement drag-and-drop functionality if needed\n6. Create animations for adding/removing items from inventory",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 6,
+            "title": "Integrate Resource System with Player Controller",
+            "description": "Connect all components and implement the complete resource gathering workflow",
+            "dependencies": [
+              3,
+              4,
+              5
+            ],
+            "details": "1. Integrate gathering interaction with player controller\n2. Implement automatic resource addition to inventory upon successful gathering\n3. Create inventory full notification and handling\n4. Add resource gathering sound effects and player feedback\n5. Implement resource gathering statistics tracking\n6. Test and balance the complete resource gathering loop",
+            "status": "pending",
+            "testStrategy": ""
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "title": "구조물 건설 시스템 구현",
+        "description": "플레이어가 수집한 자원을 사용하여 방어 구조물(타워, 벽 등)을 건설할 수 있는 시스템을 구현합니다.",
+        "details": "1. 구조물 클래스 설계 (ID, 이름, 프리팹, 건설 비용, 내구도 등)\n2. 구조물 데이터베이스 구현 (ScriptableObject 활용)\n3. 건설 UI 구현:\n   - 건설 가능한 구조물 목록\n   - 필요 자원 및 보유 자원 비교 표시\n   - 건설 버튼\n4. 건설 모드 구현:\n   - 구조물 배치 미리보기 (그리드 스냅 기능 포함)\n   - 유효/무효 배치 시각적 표시\n   - 회전 및 취소 기능\n5. 건설 완료 시 자원 소모 및 구조물 생성 로직\n6. 구조물 상태 관리 (내구도, 파괴 등)",
+        "testStrategy": "1. 다양한 구조물 유형을 건설하여 정확히 배치되는지 확인\n2. 자원이 정확히 소모되는지 확인\n3. 그리드 스냅 및 회전 기능이 정상 작동하는지 확인\n4. 유효하지 않은 위치에 건설이 차단되는지 확인\n5. 구조물 내구도 시스템이 정상 작동하는지 확인",
+        "priority": "high",
+        "dependencies": [
+          2
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Structure Class Design",
+            "description": "Create the core Structure class with all necessary properties and methods for building system",
+            "dependencies": [],
+            "details": "Implement a Structure class with properties including ID, name, prefab reference, construction cost, durability, and health. Add methods for damage handling, repair functionality, and destruction events. Create derived classes for different structure types (walls, towers, traps) with specialized behaviors. Implement serialization support for save/load functionality.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 2,
+            "title": "ScriptableObject Database Implementation",
+            "description": "Create a database system using ScriptableObjects to store and manage structure definitions",
+            "dependencies": [
+              1
+            ],
+            "details": "Design a StructureDefinition ScriptableObject that contains all static data for structures (costs, prefab references, UI icons, descriptions). Create a StructureDatabase ScriptableObject that maintains a collection of all available structure definitions. Implement editor tools for easy creation and management of structure definitions. Add search and filtering functionality to retrieve structures by type or properties.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 3,
+            "title": "Building UI Implementation",
+            "description": "Create the user interface for the building system with structure selection and resource display",
+            "dependencies": [
+              2
+            ],
+            "details": "Design and implement a building mode UI panel showing available structures. Create visual elements to display required resources versus currently owned resources with color coding. Implement structure selection logic and tooltips showing structure details. Add keyboard shortcuts and button controls for building mode activation/deactivation. Create visual feedback for insufficient resources or invalid placement conditions.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 4,
+            "title": "Placement Preview System",
+            "description": "Implement a preview system with grid snapping for structure placement",
+            "dependencies": [
+              1,
+              2
+            ],
+            "details": "Create a placement manager that handles raycasting to determine valid placement positions. Implement grid snapping functionality with configurable grid size and offset. Add visual indicators for valid (green) and invalid (red) placement positions. Implement collision detection to prevent overlapping structures. Create rotation controls for adjusting structure orientation before placement. Add ghost preview rendering of the structure at the potential placement location.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 5,
+            "title": "Resource Consumption Logic",
+            "description": "Implement the system for consuming resources when structures are built",
+            "dependencies": [
+              2,
+              3,
+              4
+            ],
+            "details": "Create integration with the inventory system to check resource availability before placement. Implement resource deduction logic when structure placement is confirmed. Add validation to prevent building when resources are insufficient. Create resource refund functionality when structure placement is canceled. Implement optional resource cost multipliers based on game difficulty or player progression.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 6,
+            "title": "Structure State Management",
+            "description": "Implement a system to manage structure states including health, damage, and destruction",
+            "dependencies": [
+              1,
+              4,
+              5
+            ],
+            "details": "Create a health/durability system for structures with visual feedback for damage states. Implement structure repair functionality using resources. Add destruction effects and animations when structures are destroyed. Create an event system for structure state changes (damaged, repaired, destroyed). Implement optional structure degradation over time. Add structure upgrade paths requiring additional resources to improve durability or functionality.",
+            "status": "pending",
+            "testStrategy": ""
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "title": "낮/밤 사이클 및 게임 상태 관리 시스템 구현",
+        "description": "게임의 낮/밤 사이클을 구현하고, 각 상태에 따른 게임 로직을 관리하는 시스템을 구축합니다.",
+        "details": "1. 게임 상태 관리자(GameStateManager) 구현:\n   - 싱글톤 패턴 적용\n   - 상태 열거형 정의 (낮, 밤, 준비, 게임오버 등)\n   - 상태 전환 이벤트 시스템\n2. 낮/밤 사이클 구현:\n   - 타이머 시스템 (낮/밤 지속 시간 설정)\n   - 시간 경과에 따른 자동 상태 전환\n   - 디버그용 시간 조작 기능 (즉시 낮/밤 전환)\n3. 라이팅 시스템 구현:\n   - 낮/밤에 따른 환경 라이팅 변경\n   - 스카이박스 및 포그 설정 변경\n4. 상태별 게임 로직 연결:\n   - 낮: 자원 리스폰, 건설 활성화\n   - 밤: 좀비 웨이브 스폰, 방어 구조물 활성화\n5. UI 상태 표시 (현재 시간, 다음 상태까지 남은 시간 등)",
+        "testStrategy": "1. 낮/밤 사이클이 정확한 시간에 전환되는지 확인\n2. 상태 전환 시 이벤트가 정상적으로 발생하는지 확인\n3. 라이팅 변화가 자연스럽게 적용되는지 확인\n4. 디버그 시간 조작 기능이 정상 작동하는지 확인\n5. 각 상태별 게임 로직이 올바르게 활성화/비활성화되는지 확인",
+        "priority": "high",
+        "dependencies": [
+          1
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Implement GameStateManager Singleton",
+            "description": "Create the core GameStateManager class using the singleton pattern to manage game states and transitions.",
+            "dependencies": [],
+            "details": "1. Create GameStateManager class with singleton pattern\n2. Define state enum (Day, Night, Preparation, GameOver, etc.)\n3. Implement state transition methods with event system\n4. Add debug functionality for state inspection\n5. Create documentation for state machine architecture",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 2,
+            "title": "Develop Day/Night Cycle Timer System",
+            "description": "Build a timer system that manages the duration of day and night cycles with automatic transitions.",
+            "dependencies": [
+              1
+            ],
+            "details": "1. Create a timer system for tracking day/night duration\n2. Implement automatic state transitions based on time\n3. Add debug controls for manual time manipulation\n4. Create time acceleration option for testing\n5. Implement time-based event triggers",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 3,
+            "title": "Implement Lighting Transition System",
+            "description": "Create a system that handles smooth transitions between lighting conditions for day and night cycles.",
+            "dependencies": [
+              1,
+              2
+            ],
+            "details": "1. Set up base lighting profiles for day and night\n2. Implement gradual lighting transition system\n3. Create skybox and fog transition effects\n4. Add ambient sound changes based on time of day\n5. Optimize lighting changes for performance",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 4,
+            "title": "Integrate State-Specific Game Logic",
+            "description": "Connect game systems to the state manager to enable/disable features based on current game state.",
+            "dependencies": [
+              1,
+              2
+            ],
+            "details": "1. Implement day-specific logic (resource respawn, construction)\n2. Create night-specific logic (zombie waves, defense activation)\n3. Add preparation phase functionality\n4. Implement game over state behavior\n5. Create state transition notification system for other game systems",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 5,
+            "title": "Develop UI Time Display System",
+            "description": "Create UI elements that show the current game state, time of day, and countdown to next state transition.",
+            "dependencies": [
+              1,
+              2
+            ],
+            "details": "1. Design and implement time/state UI elements\n2. Create visual indicators for day/night transitions\n3. Add countdown timer to next state change\n4. Implement warning notifications for upcoming state changes\n5. Create debug UI panel for state management testing",
+            "status": "pending",
+            "testStrategy": ""
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "title": "기본 좀비 AI 및 웨이브 스폰 시스템 구현",
+        "description": "단일 스레드 기반의 기본 좀비 AI와 웨이브 스폰 시스템을 구현합니다.",
+        "details": "1. 좀비 캐릭터 설계:\n   - 기본 속성 (체력, 공격력, 이동 속도 등)\n   - 애니메이션 상태 머신 구현 (대기, 이동, 공격, 사망)\n2. 기본 AI 상태 머신 구현:\n   - 대기 상태: 주변 탐지\n   - 추적 상태: 플레이어 또는 구조물 추적\n   - 공격 상태: 목표물 공격\n   - 사망 상태: 사망 애니메이션 및 처리\n3. 기본 경로 탐색 구현 (NavMesh 활용)\n4. 웨이브 스폰 시스템 구현:\n   - 웨이브 데이터 구조 (좀비 유형, 수량, 난이도 등)\n   - 스폰 포인트 관리\n   - 웨이브 진행 상태 추적\n5. 좀비-플레이어, 좀비-구조물 상호작용 구현\n6. 디버그 시각화 도구 (AI 상태, 경로 등 표시)",
+        "testStrategy": "1. 좀비가 플레이어와 구조물을 정확히 감지하고 추적하는지 확인\n2. 경로 탐색이 장애물을 올바르게 회피하는지 확인\n3. 웨이브 스폰이 설정에 따라 정확히 이루어지는지 확인\n4. 다양한 상황에서 AI 상태 전환이 자연스럽게 이루어지는지 확인\n5. 성능 테스트: 50마리 정도의 좀비가 동시에 존재할 때 프레임 레이트 측정",
+        "priority": "high",
+        "dependencies": [
+          1,
+          4
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Zombie Character Design and Attributes",
+            "description": "Design and implement the zombie character with basic attributes and animation state machine",
+            "dependencies": [],
+            "details": "- Define zombie class with attributes (health, damage, speed, detection range)\n- Create scriptable objects for different zombie types\n- Implement animation state machine (idle, walk, attack, death)\n- Set up animator controller with transitions between states\n- Create animation event handlers for attack timing\n- Implement damage system and health management",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 2,
+            "title": "AI State Machine Implementation",
+            "description": "Develop the core AI state machine to control zombie behavior",
+            "dependencies": [
+              1
+            ],
+            "details": "- Design state machine architecture (idle, chase, attack, death states)\n- Implement state transitions based on conditions\n- Create target detection system using Physics.OverlapSphere\n- Implement priority targeting (players over structures)\n- Add random idle behavior and wandering\n- Create debugging tools to visualize current state\n- Implement performance optimizations for state checks",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 3,
+            "title": "NavMesh Pathfinding System",
+            "description": "Implement pathfinding for zombies using Unity's NavMesh system",
+            "dependencies": [
+              2
+            ],
+            "details": "- Set up NavMesh generation for the game environment\n- Implement NavMeshAgent component integration with zombie movement\n- Create path recalculation logic based on moving targets\n- Add obstacle avoidance parameters\n- Implement path visualization for debugging\n- Create dynamic NavMesh updates for destroyed structures\n- Optimize pathfinding frequency based on distance to target",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 4,
+            "title": "Wave Spawn System Design",
+            "description": "Create the wave-based spawn system to manage zombie spawning",
+            "dependencies": [
+              1
+            ],
+            "details": "- Design wave data structure (ScriptableObject with zombie types, quantities, difficulty)\n- Implement wave progression system with increasing difficulty\n- Create spawn timing algorithms (gradual vs. burst spawning)\n- Develop wave completion detection\n- Implement wave announcement and UI feedback\n- Create special wave types (boss waves, specialized zombie waves)\n- Add difficulty scaling based on player performance",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 5,
+            "title": "Spawn Point Management",
+            "description": "Implement spawn point system to control where zombies appear",
+            "dependencies": [
+              4
+            ],
+            "details": "- Create spawn point class and manager\n- Implement spawn point selection algorithms (random, distance-based, directional)\n- Add visual effects for spawn points (ground crack, particle effects)\n- Create dynamic spawn point activation based on player position\n- Implement spawn point validation (prevent spawning in invalid locations)\n- Add debug visualization for active spawn points\n- Create spawn point weighting system for different areas",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 6,
+            "title": "Interaction Systems Implementation",
+            "description": "Develop systems for zombie interactions with players and structures",
+            "dependencies": [
+              2,
+              3
+            ],
+            "details": "- Implement damage dealing system from zombies to players/structures\n- Create attack animations and hit detection\n- Implement structure targeting priority system\n- Add special interactions (breaking doors, climbing walls)\n- Create audio feedback for attacks and interactions\n- Implement zombie reaction to player attacks (stagger, knockback)\n- Add visual feedback for structure damage from zombies\n- Create death handling and resource drops",
+            "status": "pending",
+            "testStrategy": ""
+          }
+        ]
+      },
+      {
+        "id": 6,
+        "title": "Unity Netcode for GameObjects 기반 네트워크 시스템 구현",
+        "description": "Unity Netcode for GameObjects와 Relay를 사용하여 2인 협동 플레이를 위한 네트워크 시스템을 구현합니다.",
+        "details": "1. Netcode for GameObjects 패키지 설정\n2. 네트워크 매니저 구현:\n   - 호스트/클라이언트 모드 전환\n   - Unity Relay 서비스 연동\n   - 접속 코드 생성 및 입력 UI\n3. 네트워크 동기화 구현:\n   - 플레이어 위치 및 상태 동기화 (NetworkTransform, NetworkVariable 활용)\n   - 입력 기반 동기화 모델 구현 (클라이언트 입력 -> 서버 검증 -> 상태 결정)\n   - 구조물 배치 및 상태 동기화\n   - 자원 및 인벤토리 동기화\n4. 네트워크 이벤트 시스템 구현:\n   - RPC 함수를 통한 이벤트 전달\n   - 서버 권한 검증 로직\n5. 네트워크 디버그 도구 구현:\n   - 연결 상태 및 지연 시간 표시\n   - 동기화 오류 로깅",
+        "testStrategy": "1. 호스트-클라이언트 연결이 정상적으로 이루어지는지 확인\n2. 플레이어 위치 및 상태가 두 클라이언트 간에 정확히 동기화되는지 확인\n3. 구조물 건설이 양쪽에 동일하게 반영되는지 확인\n4. 자원 수집 및 소모가 정확히 동기화되는지 확인\n5. 네트워크 지연 상황에서의 동작 테스트\n6. 연결 끊김 및 재연결 시나리오 테스트",
+        "priority": "high",
+        "dependencies": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Netcode for GameObjects 패키지 설정",
+            "description": "Unity 프로젝트에 Netcode for GameObjects 패키지를 설치하고 기본 설정을 구성합니다.",
+            "dependencies": [],
+            "details": "1. Package Manager를 통해 Netcode for GameObjects 패키지 설치\n2. Unity Relay 서비스 패키지 설치\n3. Unity Authentication 패키지 설치\n4. 프로젝트 설정에서 멀티플레이어 관련 옵션 구성\n5. 네트워크 프리팹 등록을 위한 폴더 구조 생성\n6. 기본 네트워크 설정 파일 생성 및 구성",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 2,
+            "title": "네트워크 매니저 구현",
+            "description": "게임의 네트워크 연결을 관리하는 핵심 매니저 클래스를 구현합니다.",
+            "dependencies": [
+              1
+            ],
+            "details": "1. NetworkManager 싱글톤 클래스 구현\n2. 호스트/클라이언트/서버 모드 전환 기능 구현\n3. Unity Relay 서비스 연동 코드 작성\n4. 접속 코드 생성 및 관리 로직 구현\n5. 네트워크 이벤트 콜백 시스템 구현 (연결, 연결 해제, 오류 등)\n6. 네트워크 상태 모니터링 시스템 구현",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 3,
+            "title": "네트워크 UI 시스템 구현",
+            "description": "사용자가 네트워크 기능을 사용할 수 있는 UI 시스템을 구현합니다.",
+            "dependencies": [
+              2
+            ],
+            "details": "1. 호스트/클라이언트 선택 메뉴 UI 구현\n2. 접속 코드 생성 및 표시 UI 구현\n3. 접속 코드 입력 UI 구현\n4. 연결 상태 및 오류 메시지 표시 UI 구현\n5. 플레이어 목록 및 상태 표시 UI 구현\n6. 네트워크 지연 시간 표시 UI 구현",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 4,
+            "title": "플레이어 네트워크 동기화 구현",
+            "description": "플레이어 캐릭터의 위치, 상태, 애니메이션을 네트워크로 동기화합니다.",
+            "dependencies": [
+              2
+            ],
+            "details": "1. NetworkObject 컴포넌트를 플레이어 프리팹에 추가\n2. NetworkTransform을 사용한 위치 및 회전 동기화 구현\n3. NetworkAnimator를 사용한 애니메이션 동기화 구현\n4. NetworkVariable을 사용한 플레이어 상태 동기화 구현\n5. 플레이어 스폰 및 소유권 관리 시스템 구현\n6. 클라이언트 권한 검증 시스템 구현",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 5,
+            "title": "입력 기반 예측 모델 구현",
+            "description": "클라이언트 입력을 서버로 전송하고 예측 및 보정을 통해 부드러운 게임플레이를 구현합니다.",
+            "dependencies": [
+              4
+            ],
+            "details": "1. 클라이언트 입력 캡처 및 서버 전송 시스템 구현\n2. 서버 측 입력 검증 및 처리 로직 구현\n3. 클라이언트 측 예측 이동 시스템 구현\n4. 서버 권한 상태와 클라이언트 예측 상태 간 보정 시스템 구현\n5. 지연 시간에 따른 보간 조정 시스템 구현\n6. 입력 버퍼링 및 재전송 메커니즘 구현",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 6,
+            "title": "구조물 및 자원 동기화 구현",
+            "description": "게임 내 구조물 배치와 자원 상태를 네트워크로 동기화합니다.",
+            "dependencies": [
+              2,
+              4
+            ],
+            "details": "1. 구조물 프리팹에 NetworkObject 컴포넌트 추가\n2. 구조물 배치 및 제거 동기화 시스템 구현\n3. 구조물 상태 변화 동기화 시스템 구현\n4. 자원 오브젝트 동기화 시스템 구현\n5. 인벤토리 상태 동기화 시스템 구현\n6. 서버 권한 검증 및 클라이언트 요청 처리 시스템 구현",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 7,
+            "title": "RPC 이벤트 시스템 구현",
+            "description": "서버와 클라이언트 간 이벤트를 전달하는 RPC 시스템을 구현합니다.",
+            "dependencies": [
+              2,
+              4
+            ],
+            "details": "1. ServerRpc 및 ClientRpc 함수 구현 패턴 설계\n2. 이벤트 우선순위 및 신뢰성 설정 시스템 구현\n3. 이벤트 큐 및 배치 처리 시스템 구현\n4. 서버 권한 검증 로직 구현\n5. 네트워크 이벤트 로깅 시스템 구현\n6. 이벤트 재시도 및 오류 처리 메커니즘 구현",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 8,
+            "title": "네트워크 디버깅 도구 구현",
+            "description": "네트워크 상태를 모니터링하고 디버깅하기 위한 도구를 구현합니다.",
+            "dependencies": [
+              2,
+              3,
+              7
+            ],
+            "details": "1. 네트워크 통계 수집 및 표시 시스템 구현 (패킷 수, 대역폭 등)\n2. 네트워크 지연 시간 측정 및 표시 시스템 구현\n3. 네트워크 패킷 로깅 및 분석 도구 구현\n4. 네트워크 시뮬레이션 도구 구현 (패킷 손실, 지연 등)\n5. 네트워크 동기화 오류 감지 및 표시 시스템 구현\n6. 네트워크 디버그 콘솔 명령어 구현",
+            "status": "pending",
+            "testStrategy": ""
+          }
+        ]
+      },
+      {
+        "id": 7,
+        "title": "Job System 및 Burst Compiler를 활용한 좀비 AI 최적화",
+        "description": "기존의 단일 스레드 좀비 AI를 Unity Job System과 Burst Compiler를 사용하여 병렬 처리 방식으로 전환합니다.",
+        "details": "1. ECS(Entity Component System) 구조 설계:\n   - 좀비 엔티티 정의\n   - 컴포넌트 설계 (위치, 상태, 목표 등)\n2. Job System 구현:\n   - 좀비 AI 로직을 Job으로 변환\n   - 경로 탐색 Job 구현\n   - 상태 업데이트 Job 구현\n3. Burst Compiler 적용:\n   - Job 코드에 [BurstCompile] 속성 추가\n   - 성능 최적화를 위한 코드 조정\n4. 기존 GameObject 기반 시스템과의 연동:\n   - 변환 레이어 구현 (ECS <-> GameObject)\n   - 렌더링 및 애니메이션 연결\n5. 성능 비교 시스템 구현:\n   - 단일 스레드 <-> Job System 전환 토글\n   - 성능 측정 및 시각화 (CPU 사용량, 프레임 타임 등)\n6. 디버그 도구 확장 (ECS 엔티티 상태 시각화)",
+        "testStrategy": "1. 500마리 이상의 좀비를 생성하여 성능 테스트 진행\n2. Job System 적용 전/후의 CPU 사용량 및 프레임 레이트 비교 측정\n3. 멀티코어 CPU에서 스레드 활용률 확인\n4. 다양한 AI 상황에서 기존 시스템과 동일한 동작을 보이는지 확인\n5. 메모리 사용량 및 가비지 컬렉션 빈도 측정",
+        "priority": "medium",
+        "dependencies": [
+          5
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Design ECS Architecture for Zombie AI",
+            "description": "Create the foundational Entity Component System architecture to replace the traditional GameObject-based zombie AI system.",
+            "dependencies": [],
+            "details": "- Define zombie entity structure and archetype\n- Design components (Position, Rotation, ZombieState, Target, PathfindingData)\n- Create systems architecture diagram\n- Implement basic entity creation and management\n- Design data flow between systems\n- Document component relationships and dependencies",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 2,
+            "title": "Implement Core ECS Systems",
+            "description": "Develop the fundamental ECS systems that will handle zombie behavior and state management.",
+            "dependencies": [
+              1
+            ],
+            "details": "- Create ZombieSpawnSystem for entity instantiation\n- Implement ZombieStateSystem for managing AI states\n- Develop ZombieTargetingSystem for identifying player targets\n- Build ZombieMovementSystem for handling movement logic\n- Implement collision detection within ECS framework\n- Create system update order and scheduling",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 3,
+            "title": "Convert AI Logic to Job System",
+            "description": "Transform the single-threaded zombie AI logic into parallel jobs using Unity's Job System.",
+            "dependencies": [
+              1,
+              2
+            ],
+            "details": "- Create IJob implementations for pathfinding calculations\n- Implement IJobParallelFor for batch processing zombie behaviors\n- Design data structures for job safety (NativeArray, NativeList)\n- Implement job scheduling and synchronization\n- Create job dependencies for proper execution order\n- Optimize data access patterns for parallel processing",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 4,
+            "title": "Apply Burst Compilation",
+            "description": "Optimize the job system implementation with Burst Compiler for maximum performance.",
+            "dependencies": [
+              3
+            ],
+            "details": "- Add [BurstCompile] attributes to job structs\n- Refactor code to be Burst-compatible (avoid managed types)\n- Implement SIMD-friendly math operations\n- Use Burst-compatible Unity Mathematics library\n- Profile and optimize memory access patterns\n- Implement static safety checks for Burst compatibility",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 5,
+            "title": "Create GameObject-ECS Conversion Layer",
+            "description": "Develop a bridge between the traditional GameObject system and the new ECS implementation.",
+            "dependencies": [
+              2
+            ],
+            "details": "- Implement ConversionSystem for GameObject to Entity conversion\n- Create AuthoringComponents for inspector configuration\n- Develop hybrid rendering solution for zombie visuals\n- Implement animation system integration with ECS\n- Create synchronization mechanism for transforms\n- Build runtime conversion for dynamic object creation",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 6,
+            "title": "Implement Performance Comparison System",
+            "description": "Create tools to measure and compare performance between traditional and ECS implementations.",
+            "dependencies": [
+              3,
+              4,
+              5
+            ],
+            "details": "- Develop runtime toggle between traditional and ECS systems\n- Implement performance metrics collection (FPS, CPU usage, memory)\n- Create visualization UI for performance data\n- Build stress testing tools for zombie count scaling\n- Implement thread utilization monitoring\n- Create automated performance testing scenarios",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 7,
+            "title": "Develop ECS Debugging Tools",
+            "description": "Create specialized debugging tools for visualizing and troubleshooting ECS entities and systems.",
+            "dependencies": [
+              5,
+              6
+            ],
+            "details": "- Implement entity inspector window extension\n- Create visual debugging for zombie pathfinding\n- Develop system for visualizing entity states and transitions\n- Implement performance bottleneck identification tools\n- Create logging system for ECS events\n- Build runtime entity manipulation tools for testing",
+            "status": "pending",
+            "testStrategy": ""
+          }
+        ]
+      },
+      {
+        "id": 8,
+        "title": "GPU Instancing 및 LOD 시스템 구현",
+        "description": "좀비 렌더링에 GPU Instancing을 적용하고, 거리에 따른 LOD(Level of Detail) 시스템을 구현하여 렌더링 성능을 최적화합니다.",
+        "details": "1. GPU Instancing 설정:\n   - 좀비 메시 및 머티리얼에 Instancing 활성화\n   - 인스턴스 프로퍼티 설정 (색상 변형 등)\n   - 배치(Batch) 그룹 최적화\n2. LOD 시스템 구현:\n   - 좀비 모델의 LOD 그룹 설정 (고/중/저 디테일 메시)\n   - 거리 기반 LOD 전환 설정\n   - 원거리 좀비의 애니메이션 간소화\n3. Occlusion Culling 설정:\n   - Occlusion 영역 베이킹\n   - 컬링 파라미터 최적화\n4. 렌더링 성능 모니터링 시스템:\n   - Draw Call 카운터 구현\n   - 렌더링 시간 측정\n   - GPU Instancing On/Off 토글 기능\n   - LOD 시각화 도구",
+        "testStrategy": "1. 다수의 좀비가 화면에 표시될 때 Draw Call 수 측정 (Instancing 적용 전/후)\n2. 다양한 거리에서 LOD 전환이 자연스럽게 이루어지는지 확인\n3. Occlusion Culling이 정상적으로 작동하는지 확인\n4. 렌더링 성능 지표 (프레임 타임, GPU 사용량) 측정\n5. 다양한 하드웨어 환경에서의 성능 테스트",
+        "priority": "medium",
+        "dependencies": [
+          5
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Configure GPU Instancing for Zombie Models",
+            "description": "Set up GPU Instancing on zombie meshes and materials to reduce draw calls and improve rendering performance.",
+            "dependencies": [],
+            "details": "- Enable GPU Instancing on all zombie materials\n- Configure material property blocks for instance variations (color, size)\n- Implement MaterialPropertyBlock management system\n- Create batch grouping strategy for similar zombies\n- Test draw call reduction with profiler",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 2,
+            "title": "Implement LOD System for Zombie Models",
+            "description": "Create and configure Level of Detail (LOD) groups for zombie models to reduce polygon count at distance.",
+            "dependencies": [
+              1
+            ],
+            "details": "- Create high, medium, and low detail zombie meshes\n- Set up LOD Groups with appropriate distance thresholds\n- Configure LOD bias settings for performance tuning\n- Implement simplified animation sets for distant zombies\n- Test polygon count reduction at various distances",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 3,
+            "title": "Configure Occlusion Culling System",
+            "description": "Set up and optimize Unity's Occlusion Culling system to prevent rendering objects that are not visible to the camera.",
+            "dependencies": [
+              2
+            ],
+            "details": "- Define occlusion areas in the game environment\n- Bake occlusion data with appropriate parameters\n- Optimize culling settings for zombie-specific scenarios\n- Configure occlusion portals for complex structures\n- Test occlusion effectiveness in dense zombie scenarios",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 4,
+            "title": "Develop Rendering Performance Monitoring Tools",
+            "description": "Create a comprehensive monitoring system to track and display rendering performance metrics in real-time.",
+            "dependencies": [
+              1,
+              2,
+              3
+            ],
+            "details": "- Implement draw call counter with frame history\n- Create GPU/CPU rendering time measurement system\n- Develop toggle controls for GPU Instancing, LOD, and Occlusion Culling\n- Build LOD visualization tool with color coding\n- Add performance data logging and export functionality",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 5,
+            "title": "Optimize and Test Rendering Systems",
+            "description": "Perform comprehensive testing and optimization of all implemented rendering systems across various hardware configurations.",
+            "dependencies": [
+              4
+            ],
+            "details": "- Conduct performance benchmarks with varying zombie counts\n- Test LOD transitions for visual smoothness\n- Verify occlusion culling effectiveness in complex scenes\n- Optimize instancing batch sizes based on test results\n- Document performance improvements with before/after metrics\n- Test on multiple hardware configurations",
+            "status": "pending",
+            "testStrategy": ""
+          }
+        ]
+      },
+      {
+        "id": 9,
+        "title": "JSON 기반 게임 상태 저장/로드 시스템 구현",
+        "description": "게임 상태(플레이어, 구조물, 자원 등)를 JSON 형식으로 저장하고 로드하는 시스템을 구현합니다.",
+        "details": "1. 저장 데이터 구조 설계:\n   - 플레이어 데이터 (위치, 상태, 인벤토리 등)\n   - 구조물 데이터 (유형, 위치, 내구도 등)\n   - 게임 상태 데이터 (낮/밤 사이클, 웨이브 정보 등)\n   - 버전 정보 (데이터 마이그레이션용)\n2. JSON 직렬화/역직렬화 구현:\n   - Newtonsoft.Json 라이브러리 활용\n   - 커스텀 컨버터 구현 (Vector3, Quaternion 등)\n3. 저장/로드 매니저 구현:\n   - 파일 입출력 처리\n   - 자동 저장 기능\n   - 저장 슬롯 관리\n4. UI 구현:\n   - 저장/로드 메뉴\n   - 저장 파일 정보 표시\n5. 네트워크 연동:\n   - 호스트 저장 데이터 클라이언트 전송 메커니즘",
+        "testStrategy": "1. 다양한 게임 상태에서 저장 후 정확히 로드되는지 확인\n2. 대용량 데이터(많은 구조물, 좀비 등) 저장/로드 성능 테스트\n3. 파일 손상 시나리오 테스트 및 오류 처리 확인\n4. 네트워크 게임에서 저장/로드가 정상 작동하는지 확인\n5. 저장 파일 크기 및 저장/로드 시간 측정",
+        "priority": "medium",
+        "dependencies": [
+          2,
+          3,
+          4,
+          5
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Design Save Data Structure",
+            "description": "Create a comprehensive data structure for storing game state in JSON format",
+            "dependencies": [],
+            "details": "1. Define player data schema (position, health, inventory, etc.)\n2. Design structure data schema (type, position, durability)\n3. Create game state schema (day/night cycle, wave information)\n4. Implement version tracking for data migration\n5. Design a root container object that holds all game data\n6. Document the schema with examples",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 2,
+            "title": "Implement JSON Serialization/Deserialization",
+            "description": "Create the core serialization system using Newtonsoft.Json with custom converters",
+            "dependencies": [
+              1
+            ],
+            "details": "1. Set up Newtonsoft.Json in the project\n2. Implement custom converters for Unity types (Vector3, Quaternion, Color)\n3. Create serialization helper methods for game objects\n4. Implement deserialization with error handling for corrupted files\n5. Add validation logic to ensure data integrity\n6. Create unit tests for serialization/deserialization",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 3,
+            "title": "Develop Save/Load Manager",
+            "description": "Create a central manager to handle all save/load operations",
+            "dependencies": [
+              2
+            ],
+            "details": "1. Implement file I/O operations with proper error handling\n2. Create an autosave system with configurable intervals\n3. Develop save slot management (create, delete, rename)\n4. Implement save file metadata (timestamp, screenshot, game progress)\n5. Add encryption support for save files (optional)\n6. Create backup system for save files to prevent data loss",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 4,
+            "title": "Create Save/Load UI System",
+            "description": "Design and implement user interface for the save/load functionality",
+            "dependencies": [
+              3
+            ],
+            "details": "1. Design save/load menu screens\n2. Implement save slot visualization with metadata\n3. Create confirmation dialogs for overwriting/deleting saves\n4. Add visual feedback for save/load operations\n5. Implement save file sorting and filtering options\n6. Create UI for displaying errors and recovery options",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 5,
+            "title": "Implement Network Integration for Multiplayer",
+            "description": "Extend the save/load system to work in multiplayer environments",
+            "dependencies": [
+              3
+            ],
+            "details": "1. Design client-server save data synchronization protocol\n2. Implement host-to-client save data transfer mechanism\n3. Create conflict resolution for simultaneous save operations\n4. Add network-specific metadata to save files\n5. Implement permission system for save/load operations in multiplayer\n6. Create network error handling and recovery procedures",
+            "status": "pending",
+            "testStrategy": ""
+          }
+        ]
+      },
+      {
+        "id": 10,
+        "title": "시스템 고도화 및 포트폴리오 데이터 수집 도구 구현",
+        "description": "Binary 저장 방식 전환, 성능 분석 도구 구현, 데이터 마이그레이션 시스템 등 고급 기능을 구현하고 포트폴리오용 데이터를 수집합니다.",
+        "details": "1. Binary 저장 시스템 구현:\n   - BinaryFormatter 또는 MessagePack 활용\n   - 압축 알고리즘 적용\n   - JSON <-> Binary 전환 토글 및 성능 비교\n2. 데이터 마이그레이션 시스템 구현:\n   - 버전 관리 체계\n   - 마이그레이션 함수 등록 시스템\n   - PRD 예시 구현 (v1.0 -> v1.1 stamina 필드 추가 등)\n3. 고급 성능 분석 도구 구현:\n   - 상세 프로파일링 데이터 수집\n   - 그래프 시각화 (시간에 따른 FPS, CPU/GPU 사용량 등)\n   - 최적화 기술별 성능 영향 자동 측정\n4. 포트폴리오 데이터 수집 자동화:\n   - 스크린샷 및 동영상 캡처 도구\n   - 성능 데이터 CSV 내보내기\n   - A/B 테스트 자동화 (최적화 기술 On/Off 비교)\n5. 디버그 메뉴 확장:\n   - 모든 최적화 기술의 개별 토글\n   - 테스트 시나리오 자동 실행",
+        "testStrategy": "1. JSON과 Binary 저장 방식의 파일 크기 및 속도 비교 측정\n2. 다양한 버전 간 데이터 마이그레이션 테스트\n3. 성능 분석 도구의 정확성 검증 (Unity Profiler와 비교)\n4. 다양한 하드웨어 환경에서 성능 데이터 수집 및 비교\n5. 포트폴리오 데이터의 완전성 및 가독성 확인",
+        "priority": "low",
+        "dependencies": [
+          7,
+          8,
+          9
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Implement Binary Serialization System",
+            "description": "Create a binary serialization system to replace JSON storage for improved performance and reduced file size.",
+            "dependencies": [],
+            "details": "- Implement serialization using BinaryFormatter or MessagePack\n- Add compression algorithms (e.g., LZ4, Deflate)\n- Create toggle functionality to switch between JSON and Binary formats\n- Develop performance comparison tools to measure size and speed differences\n- Implement versioning headers for binary data\n- Create unit tests for serialization/deserialization",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 2,
+            "title": "Develop Data Migration System",
+            "description": "Create a robust system to handle data schema evolution across different game versions.",
+            "dependencies": [
+              1
+            ],
+            "details": "- Design version management architecture with semantic versioning\n- Implement migration function registration system\n- Create migration pipeline with validation steps\n- Develop example migrations (e.g., adding stamina field to player data)\n- Add rollback capabilities for failed migrations\n- Create logging and diagnostics for migration processes",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 3,
+            "title": "Build Advanced Performance Analysis Tools",
+            "description": "Implement comprehensive performance profiling and visualization tools to identify optimization opportunities.",
+            "dependencies": [],
+            "details": "- Create detailed profiling data collection system\n- Implement real-time graph visualization for FPS, CPU/GPU usage\n- Add memory allocation tracking and visualization\n- Develop automatic performance impact measurement for each optimization technique\n- Create benchmark scenarios for consistent performance testing\n- Implement data export functionality for external analysis",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 4,
+            "title": "Create Portfolio Data Collection Automation",
+            "description": "Develop tools to automatically capture screenshots, videos, and performance data for portfolio documentation.",
+            "dependencies": [
+              3
+            ],
+            "details": "- Implement screenshot capture at key gameplay moments\n- Create video recording system with configurable quality settings\n- Develop CSV export for performance metrics\n- Build A/B testing automation to compare optimization techniques\n- Add metadata tagging for captured media\n- Create report generation for optimization comparisons",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 5,
+            "title": "Expand Debug Menu System",
+            "description": "Enhance the debug menu with comprehensive optimization toggles and testing capabilities.",
+            "dependencies": [
+              3
+            ],
+            "details": "- Create individual toggles for all optimization techniques\n- Implement preset configurations for different quality levels\n- Add visualization options for performance metrics\n- Develop automated test scenario execution\n- Create heat map visualization for performance bottlenecks\n- Implement debug console with command history",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 6,
+            "title": "Integrate and Test Complete System",
+            "description": "Integrate all components and perform comprehensive testing across different hardware configurations.",
+            "dependencies": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "details": "- Integrate all subsystems into a cohesive framework\n- Create comprehensive test suite for all features\n- Perform cross-platform testing (PC, mobile, console)\n- Measure and document performance improvements\n- Create final portfolio documentation with collected data\n- Prepare demonstration scenarios highlighting key optimizations",
+            "status": "pending",
+            "testStrategy": ""
+          }
+        ]
+      }
+    ],
+    "metadata": {
+      "created": "2025-07-15T08:13:32.743Z",
+      "updated": "2025-07-15T10:50:23.781Z",
+      "description": "Tasks for master context"
+    }
+  }
+}
