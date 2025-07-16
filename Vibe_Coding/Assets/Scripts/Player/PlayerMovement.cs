@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour
     public float jumpHeight = 1.5f;
     public Transform cameraTransform; // 3인칭 카메라 Transform
     public Transform playerBody; // 플레이어 몸통(1인칭 이동 기준)
+    public CameraController cameraController; // CameraController 참조
 
     private CharacterController controller;
     private Vector3 velocity;
@@ -27,9 +28,8 @@ public class PlayerMovement : MonoBehaviour
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
 
-        // 카메라의 Y축(수평) 회전만 반영
-        Vector3 move;
-        if (playerBody != null)
+        Vector3 move = Vector3.zero;
+        if (cameraController != null && cameraController.mode == CameraController.CameraMode.FirstPerson && playerBody != null)
         {
             // 1인칭: 플레이어 몸통 기준
             Vector3 bodyForward = playerBody.forward;
@@ -40,7 +40,7 @@ public class PlayerMovement : MonoBehaviour
             bodyRight.Normalize();
             move = bodyRight * x + bodyForward * z;
         }
-        else
+        else if (cameraController != null && cameraController.mode == CameraController.CameraMode.ThirdPerson && cameraTransform != null)
         {
             // 3인칭: 카메라 기준
             Vector3 camForward = cameraTransform.forward;
@@ -51,6 +51,7 @@ public class PlayerMovement : MonoBehaviour
             camRight.Normalize();
             move = camRight * x + camForward * z;
         }
+        // (예외: 둘 다 없으면 이동 없음)
 
         controller.Move(move * moveSpeed * Time.deltaTime);
 

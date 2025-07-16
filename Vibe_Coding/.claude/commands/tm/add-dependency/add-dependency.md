@@ -6,6 +6,7 @@ Parse the task IDs to establish dependency relationship.
 
 ## Adding Dependencies
 
+Creates a dependency where one task must be completed before another can start.
 
 ## Argument Parsing
 
